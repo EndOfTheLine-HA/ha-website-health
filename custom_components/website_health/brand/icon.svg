@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256">
+  <title>Website Health community icon</title>
+  <rect x="12" y="12" width="232" height="232" rx="28" fill="#15803d"/>
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="128" cy="128" r="65" stroke-width="11"/>
+    <polyline points="40,128 92,128 108,92 130,168 150,106 164,128 216,128" stroke-width="14"/>
+  </g>
+</svg>

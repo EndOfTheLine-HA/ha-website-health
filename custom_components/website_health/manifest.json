@@ -1,0 +1,12 @@
+{
+  "domain": "website_health",
+  "name": "Website Health",
+  "codeowners": ["@endoftheline818"],
+  "config_flow": true,
+  "documentation": "https://github.com/EndOfTheLine-HA/ha-website-health",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/EndOfTheLine-HA/ha-website-health/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

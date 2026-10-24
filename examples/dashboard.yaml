@@ -1,0 +1,28 @@
+# Example cards for one website. Entity IDs are placeholders: replace
+# "example_website" with the slug Home Assistant created for your site.
+type: vertical-stack
+cards:
+  - type: entities
+    title: Example website
+    entities:
+      - entity: sensor.example_website_status
+      - entity: binary_sensor.example_website_problem
+      - entity: sensor.example_website_response_time
+      - entity: sensor.example_website_published_build
+      - entity: sensor.example_website_last_checked
+  - type: entity-filter
+    entities:
+      - binary_sensor.example_website_home
+      - binary_sensor.example_website_pricing
+    conditions:
+      - condition: state
+        state: "on"
+    card:
+      type: entities
+      title: Failing checks
+    show_empty: false
+  - type: history-graph
+    title: Response time
+    hours_to_show: 48
+    entities:
+      - entity: sensor.example_website_response_time

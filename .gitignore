@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+.coverage
+htmlcov/
+.env
+.env.*
+!.env.example
+secrets.yaml
+*.db
+*.sqlite*
+*.backup
+*.bak
+.storage/

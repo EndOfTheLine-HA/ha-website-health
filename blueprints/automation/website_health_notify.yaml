@@ -1,0 +1,122 @@
+blueprint:
+  name: Website Health notifications
+  description: >-
+    Notifies you when a website watched by Website Health goes down and when it
+    recovers. Optionally also tells you when your own internet is down, and
+    sends a daily summary.
+  domain: automation
+  source_url: https://github.com/EndOfTheLine-HA/ha-website-health/blob/main/blueprints/automation/website_health_notify.yaml
+  input:
+    status_entity:
+      name: Website status
+      description: The Status sensor of the website to watch.
+      selector:
+        entity:
+          filter:
+            - integration: website_health
+              domain: sensor
+              device_class: enum
+    notify_action:
+      name: Notify action
+      description: >-
+        The notify action to call, for example notify.mobile_app_my_phone.
+      default: notify.notify
+      selector:
+        text: {}
+    notify_internet_down:
+      name: Also tell me when my internet is down
+      description: >-
+        Sends a message when checks fail because your own connection is down,
+        and when it comes back. Delivery depends on that connection.
+      default: false
+      selector:
+        boolean: {}
+    daily_summary:
+      name: Send a daily summary
+      default: false
+      selector:
+        boolean: {}
+    summary_time:
+      name: Daily summary time
+      default: "08:00:00"
+      selector:
+        time: {}
+
+mode: queued
+max: 10
+
+triggers:
+  - trigger: state
+    entity_id: !input status_entity
+    to: down
+    not_from: [unavailable, unknown]
+    id: down
+  - trigger: state
+    entity_id: !input status_entity
+    from: down
+    to: ok
+    id: recovered
+  - trigger: state
+    entity_id: !input status_entity
+    to: internet_down
+    not_from: [unavailable, unknown]
+    id: internet_down
+  - trigger: state
+    entity_id: !input status_entity
+    from: internet_down
+    to: ok
+    id: internet_back
+  - trigger: time
+    at: !input summary_time
+    id: summary
+
+variables:
+  status_entity: !input status_entity
+  notify_internet_down: !input notify_internet_down
+  daily_summary: !input daily_summary
+  site: >-
+    {{ device_attr(device_id(status_entity), 'name')
+       or state_attr(status_entity, 'friendly_name') }}
+  status_text: >-
+    {{ {'ok': 'OK', 'down': 'Down', 'internet_down': 'My internet is down'}
+       .get(states(status_entity), states(status_entity)) }}
+  failing: |-
+    {%- for check in state_attr(status_entity, 'failing_checks') or [] %}
+    {{ check.name }} ({{ check.path }}): {{ check.detail }}
+    {%- endfor %}
+
+actions:
+  - choose:
+      - conditions: "{{ trigger.id == 'down' }}"
+        sequence:
+          - action: !input notify_action
+            data:
+              title: "{{ site }} is down"
+              message: "{{ failing | trim or 'Checks are failing.' }}"
+      - conditions: "{{ trigger.id == 'recovered' }}"
+        sequence:
+          - action: !input notify_action
+            data:
+              title: "{{ site }} is back"
+              message: All checks pass again.
+      - conditions: "{{ trigger.id == 'internet_down' and notify_internet_down }}"
+        sequence:
+          - action: !input notify_action
+            data:
+              title: Your internet is down
+              message: >-
+                Checks for {{ site }} failed, and the internet check could not
+                reach any control host either. The site itself may be fine.
+      - conditions: "{{ trigger.id == 'internet_back' and notify_internet_down }}"
+        sequence:
+          - action: !input notify_action
+            data:
+              title: Your internet is back
+              message: "{{ site }} checks pass again."
+      - conditions: "{{ trigger.id == 'summary' and daily_summary }}"
+        sequence:
+          - action: !input notify_action
+            data:
+              title: "{{ site }}: {{ status_text }}"
+              message: >-
+                {{ failing | trim if failing | trim else 'All checks pass.' }}

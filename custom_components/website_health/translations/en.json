@@ -1,0 +1,235 @@
+{
+  "title": "Website Health",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add a website to watch",
+        "description": "Website Health checks that a site really works: each page must load and contain the text you choose. When checks fail, it first checks your own internet connection, so an outage at home is never reported as the site being down.",
+        "data": {
+          "name": "Name",
+          "base_url": "Website address",
+          "add_anyway": "Add even if it does not answer now"
+        },
+        "data_description": {
+          "name": "Shown as the device name. Defaults to the site's host name.",
+          "base_url": "The site's address including https or http, without a path. Pages are added as checks next.",
+          "add_anyway": "Tick this to watch a site that is down today."
+        }
+      },
+      "first_check": {
+        "title": "First check",
+        "description": "What should be checked on {base_url}? You can add more checks later in the integration's options.",
+        "data": {
+          "label": "Name",
+          "path": "Path",
+          "type": "Type"
+        },
+        "data_description": {
+          "label": "Becomes the check's entity name. Defaults to the path.",
+          "path": "Starts with a slash, for example / or /pricing/.",
+          "type": "A page is searched for text. A JSON file is parsed and checked for keys. The next step asks for the text or keys."
+        }
+      },
+      "check_page": {
+        "title": "Required text",
+        "description": "Text that must appear in the HTML that {path} sends. All entries must match. Leave empty to check only that the page loads.",
+        "data": {
+          "must_contain": "Required text"
+        },
+        "data_description": {
+          "must_contain": "Pick one or two short, stable phrases, such as a heading and a button label. Matching is case-sensitive."
+        }
+      },
+      "check_json": {
+        "title": "Required JSON keys",
+        "description": "Top-level keys that must be present in the JSON that {path} returns. Leave empty to check only that it is valid JSON.",
+        "data": {
+          "must_have_keys": "Required JSON keys"
+        },
+        "data_description": {
+          "must_have_keys": "For example version or status."
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "Enter a full address that starts with https or http.",
+      "url_has_path": "Enter the address without a path or query. Add paths as checks in the next step.",
+      "cannot_connect": "The site did not answer with a success code. Check the address, or tick \"Add even if it does not answer now\".",
+      "invalid_path": "The path must start with a slash and contain no spaces."
+    },
+    "abort": {
+      "already_configured": "This website is already being watched."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Website Health options",
+        "menu_options": {
+          "add_check": "Add a check",
+          "choose_check": "Edit a check",
+          "remove_check": "Remove checks",
+          "timing": "Timing",
+          "build_info": "Build info",
+          "internet_check": "Internet check",
+          "advanced": "Advanced"
+        }
+      },
+      "add_check": {
+        "title": "Add a check",
+        "data": {
+          "label": "Name",
+          "path": "Path",
+          "type": "Type"
+        },
+        "data_description": {
+          "label": "Becomes the check's entity name. Defaults to the path.",
+          "path": "Starts with a slash, for example / or /pricing/.",
+          "type": "A page is searched for text. A JSON file is parsed and checked for keys. The next step asks for the text or keys."
+        }
+      },
+      "choose_check": {
+        "title": "Edit a check",
+        "data": {
+          "check": "Check"
+        }
+      },
+      "edit_check": {
+        "title": "Edit a check",
+        "data": {
+          "label": "Name",
+          "path": "Path",
+          "type": "Type"
+        },
+        "data_description": {
+          "label": "Becomes the check's entity name. Defaults to the path.",
+          "path": "Starts with a slash, for example / or /pricing/.",
+          "type": "A page is searched for text. A JSON file is parsed and checked for keys. The next step asks for the text or keys."
+        }
+      },
+      "check_page": {
+        "title": "Required text",
+        "description": "Text that must appear in the HTML that {path} sends. All entries must match. Leave empty to check only that the page loads.",
+        "data": {
+          "must_contain": "Required text"
+        },
+        "data_description": {
+          "must_contain": "Pick one or two short, stable phrases, such as a heading and a button label. Matching is case-sensitive."
+        }
+      },
+      "check_json": {
+        "title": "Required JSON keys",
+        "description": "Top-level keys that must be present in the JSON that {path} returns. Leave empty to check only that it is valid JSON.",
+        "data": {
+          "must_have_keys": "Required JSON keys"
+        },
+        "data_description": {
+          "must_have_keys": "For example version or status."
+        }
+      },
+      "remove_check": {
+        "title": "Remove checks",
+        "data": {
+          "remove": "Checks to remove"
+        }
+      },
+      "timing": {
+        "title": "Timing",
+        "data": {
+          "scan_interval": "Check interval",
+          "timeout": "Request timeout",
+          "retries": "Retries per check",
+          "retry_delay": "Retry delay",
+          "failures_before_down": "Failed sweeps before Down"
+        },
+        "data_description": {
+          "scan_interval": "Minutes between sweeps.",
+          "timeout": "Seconds to wait for each request.",
+          "retries": "Extra attempts for a failed check within the same sweep.",
+          "retry_delay": "Seconds to wait before each retry.",
+          "failures_before_down": "How many failed sweeps in a row before the site is reported Down. Raise this if short blips cause alerts."
+        }
+      },
+      "build_info": {
+        "title": "Build info",
+        "description": "Optionally read a JSON file that names the live build, such as a commit or version. This is for information only: a missing file never marks the site Down.",
+        "data": {
+          "build_info_path": "Path",
+          "build_info_keys": "Keys to show"
+        },
+        "data_description": {
+          "build_info_path": "For example /build-info.json. Leave empty to turn this off.",
+          "build_info_keys": "Top-level keys to read. The first becomes the sensor's state, the rest its attributes."
+        }
+      },
+      "internet_check": {
+        "title": "Internet check",
+        "description": "When checks fail, these addresses are fetched to tell whether your own internet works. If none answer and the site does not answer either, the status is \"My internet is down\" instead of Down. Use hosts that share nothing with your site: not its host, not its CDN.",
+        "data": {
+          "control_urls": "Control addresses"
+        }
+      },
+      "advanced": {
+        "title": "Advanced",
+        "data": {
+          "user_agent": "User agent",
+          "verify_ssl": "Verify TLS certificates",
+          "heartbeat_url": "Heartbeat ping URL"
+        },
+        "data_description": {
+          "user_agent": "Sent with every request so you can filter these checks out of your site's analytics.",
+          "verify_ssl": "Turn off only for sites with self-signed certificates.",
+          "heartbeat_url": "Optional dead-man's switch, for example a healthchecks.io check. It is fetched after every clean sweep, and the same URL with /fail added is posted to when the site goes Down. Leave empty to turn it off."
+        }
+      }
+    },
+    "error": {
+      "invalid_path": "The path must start with a slash and contain no spaces.",
+      "no_checks_left": "At least one check must remain.",
+      "no_build_keys": "Add at least one key to read from the build-info file.",
+      "invalid_control_urls": "Enter at least one full address that starts with https or http.",
+      "empty_user_agent": "The user agent cannot be empty.",
+      "invalid_heartbeat_url": "Enter a full address that starts with https or http, or leave it empty."
+    },
+    "abort": {
+      "check_not_found": "That check no longer exists."
+    }
+  },
+  "selector": {
+    "check_type": {
+      "options": {
+        "page": "Page",
+        "json": "JSON file"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "problem": {
+        "name": "Problem"
+      },
+      "check": {
+        "name": "Check"
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "ok": "OK",
+          "down": "Down",
+          "internet_down": "My internet is down"
+        }
+      },
+      "response_time": {
+        "name": "Response time"
+      },
+      "published_build": {
+        "name": "Published build"
+      },
+      "last_checked": {
+        "name": "Last checked"
+      }
+    }
+  }
+}

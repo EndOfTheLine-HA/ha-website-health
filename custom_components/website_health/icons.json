@@ -1,0 +1,31 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "check": {
+        "default": "mdi:file-check-outline",
+        "state": {
+          "on": "mdi:file-alert-outline"
+        }
+      }
+    },
+    "sensor": {
+      "status": {
+        "default": "mdi:web-check",
+        "state": {
+          "ok": "mdi:web-check",
+          "down": "mdi:web-remove",
+          "internet_down": "mdi:wifi-off"
+        }
+      },
+      "response_time": {
+        "default": "mdi:timer-outline"
+      },
+      "published_build": {
+        "default": "mdi:source-commit"
+      },
+      "last_checked": {
+        "default": "mdi:clock-check-outline"
+      }
+    }
+  }
+}
