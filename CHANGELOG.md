@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Documentation only: the README now leads with searching for the integration in the
+  default HACS catalog, with the custom repository as a fallback.
+
 ## 0.1.0
 
 - Initial release.

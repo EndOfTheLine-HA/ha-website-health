@@ -162,8 +162,9 @@ health of the machine Home Assistant runs on, use System Monitor.
 
 ## Release status
 
-Version 0.1.0 is the initial release. See [AUDIT.md](AUDIT.md) for what is verified
-and what is not, and the [v0.1.0 release notes](docs/releases/v0.1.0.md).
+Version 0.1.1 is a documentation update to the initial 0.1.0 release. See
+[AUDIT.md](AUDIT.md) for what is verified and what is not, and the
+[v0.1.1](docs/releases/v0.1.1.md) and [v0.1.0](docs/releases/v0.1.0.md) release notes.
 
 ## License
 
