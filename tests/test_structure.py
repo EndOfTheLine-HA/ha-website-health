@@ -19,7 +19,7 @@ def test_metadata() -> None:
     assert manifest["domain"] == "website_health"
     assert manifest["config_flow"] is True
     assert manifest["requirements"] == []
-    assert manifest["version"] == "0.1.0"
+    assert manifest["version"] == "0.1.1"
     assert f'version = "{manifest["version"]}"' in pyproject
     assert f'VERSION: Final = "{manifest["version"]}"' in const
     assert hacs["homeassistant"] == "2026.10.2"

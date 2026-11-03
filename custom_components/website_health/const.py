@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Final
 
 DOMAIN: Final = "website_health"
-VERSION: Final = "0.1.0"
+VERSION: Final = "0.1.1"
 REPO_URL: Final = "https://github.com/EndOfTheLine-HA/ha-website-health"
 
 CONF_BASE_URL: Final = "base_url"
