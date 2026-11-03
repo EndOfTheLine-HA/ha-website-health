@@ -31,16 +31,19 @@ If they cannot be reached either, the status reads **My internet is down** inste
 
 ## Install with HACS
 
-1. Open HACS.
-2. Add `https://github.com/EndOfTheLine-HA/ha-website-health` as a custom repository
-   of type **Integration**.
-3. Install **Website Health**.
-4. Restart Home Assistant.
-5. Go to **Settings > Devices & services > Add integration** and search for
+Website Health is in the default HACS catalog.
+
+1. Open HACS and search for **Website Health**.
+2. Select it, then choose **Download**.
+3. Restart Home Assistant.
+4. Go to **Settings > Devices & services > Add integration** and search for
    **Website Health**.
 
-Home Assistant **2026.10.2 or newer** is required. Inclusion in the default HACS
-catalog is separate.
+If it does not appear in HACS yet (a new default listing can take several hours to
+show up), add `https://github.com/EndOfTheLine-HA/ha-website-health` as a custom
+repository of type **Integration** and download it from there.
+
+Home Assistant **2026.10.2 or newer** is required.
 
 ## Setting up a website
 
